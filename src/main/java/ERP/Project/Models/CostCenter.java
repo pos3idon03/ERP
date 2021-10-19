@@ -16,4 +16,28 @@ public class CostCenter {
     private String description;
     @Column (name = "creationDate")
     private LocalDateTime creationDate;
+
+    public String getCostCenterCode() {
+        return costCenterCode;
+    }
+
+    public void setCostCenterCode(String costCenterCode) {
+        this.costCenterCode = costCenterCode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
 }

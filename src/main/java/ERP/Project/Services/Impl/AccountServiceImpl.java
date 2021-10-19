@@ -1,35 +1,44 @@
 package ERP.Project.Services.Impl;
 
 import ERP.Project.Models.Account;
+import ERP.Project.Repositories.AccountRepository;
 import ERP.Project.Services.AccountService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
+    private AccountRepository accountRepository;
+
     @Override
     public Account saveAccount(Account account) {
-        return null;
+        return accountRepository.save(account);
     }
 
     @Override
     public List<Account> getAllAccounts() {
-        return null;
+        return accountRepository.findAll();
     }
 
     @Override
     public Account getAccountById(String id) {
-        return null;
+        return accountRepository.getById(id);
     }
 
     @Override
     public Account updateAccount(Account account, String id) {
-        return null;
+        Account existingAccount = accountRepository.getById(id);
+        existingAccount.setAccountCode(account.getAccountCode());
+        existingAccount.setAccountDescription(account.getAccountDescription());
+
+        accountRepository.save(existingAccount);
+        return existingAccount;
     }
 
     @Override
     public void deleteAccount(String id) {
-
+        accountRepository.deleteById(id);
     }
 }
