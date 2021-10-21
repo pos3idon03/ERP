@@ -21,6 +21,6 @@ public class JournalEntry {
     @OneToMany(mappedBy = "journalEntry")
     private Set<JournalEntryLine> journalEntryLines;
     @ManyToOne
-    @JoinColumn(name = "costCenterCode", nullable = false)
+    @JoinColumn(name = "costCenterCodeId", nullable = false)
     private CostCenter costCenter;
 }

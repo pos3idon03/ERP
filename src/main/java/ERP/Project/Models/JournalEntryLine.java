@@ -15,7 +15,7 @@ public class JournalEntryLine {
     @Column(name = "amount")
     private Float amount;
     @ManyToOne
-    @JoinColumn(name = "accountCode", nullable = false)
+    @JoinColumn(name = "accountCodeId", nullable = false)
     private Account account;
     @ManyToOne
     @JoinColumn(name = "journalEntryId", nullable = false)
