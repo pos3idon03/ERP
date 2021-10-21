@@ -1,11 +1,12 @@
 package ERP.Project.Models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.time.LocalDateTime;
+import lombok.Data;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Set;
+
+@Data
 @Entity
 @Table(name = "costCenters")
 public class CostCenter {
@@ -16,28 +17,7 @@ public class CostCenter {
     private String description;
     @Column (name = "creationDate")
     private LocalDateTime creationDate;
+    @OneToMany (mappedBy = "costCenter")
+    private Set<JournalEntry> journalEntries;
 
-    public String getCostCenterCode() {
-        return costCenterCode;
-    }
-
-    public void setCostCenterCode(String costCenterCode) {
-        this.costCenterCode = costCenterCode;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
 }

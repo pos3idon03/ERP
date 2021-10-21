@@ -14,6 +14,7 @@ public class AccountController {
     private AccountService accountService;
 
     public AccountController(AccountService accountService) {
+        super();
         this.accountService = accountService;
     }
 
@@ -23,10 +24,11 @@ public class AccountController {
     public ResponseEntity<Account> createAccount(@RequestBody Account account){
         return new ResponseEntity<Account>(accountService.saveAccount(account), HttpStatus.CREATED);
     }
+
     //build update account RestAPI
     //http://localhost:8080/api/accounts/1
     @PutMapping("{id}")
-    public  ResponseEntity<Account> updateAccount(@PathVariable Account account,
+    public  ResponseEntity<Account> updateAccount(@PathVariable("id") Account account,
                                                   @RequestBody String code){
         return new ResponseEntity<Account>(accountService.updateAccount(account, code), HttpStatus.OK);
     }
@@ -34,14 +36,14 @@ public class AccountController {
     //build delete account RestAPI
     //http://localhost:8080/api/accounts/1
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteAccount(@RequestBody String code){
+    public ResponseEntity<String> deleteAccount(@PathVariable("id") String code){
         accountService.deleteAccount(code);
         return new ResponseEntity<String>("Account Deleted", HttpStatus.OK);
     }
     //build get account by Id RestAPI
     //http://localhost:8080/api/accounts/1
     @GetMapping("{id}")
-    public ResponseEntity<Account> getAccountById(@RequestBody String code){
+    public ResponseEntity<Account> getAccountById(@PathVariable("id") String code){
         return new ResponseEntity<Account>(accountService.getAccountById(code),HttpStatus.OK);
     }
     //build get all accounts RestAPI
@@ -50,8 +52,6 @@ public class AccountController {
     public List<Account> getAllAccounts(){
         return accountService.getAllAccounts();
     }
-
-
 }
 
 

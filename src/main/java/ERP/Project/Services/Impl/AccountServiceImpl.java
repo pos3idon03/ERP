@@ -12,6 +12,11 @@ import java.util.Optional;
 public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
+    public AccountServiceImpl(AccountRepository accountRepository) {
+        super();
+        this.accountRepository = accountRepository;
+    }
+
     @Override
     public Account saveAccount(Account account) {
         return accountRepository.save(account);
