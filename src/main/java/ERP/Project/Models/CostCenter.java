@@ -14,14 +14,14 @@ public class CostCenter {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "PR_KEY")
+    @Column(name = "COSTCENTER_PR_KEY")
     private String costCenterCodeId;
     @Column (name = "costCenterCode")
     private String costCenterCode;
     @Column (name = "description")
     private String description;
     @Column (name = "creationDate")
-    private LocalDateTime creationDate;
+    private LocalDateTime creationDate = LocalDateTime.now();
     @OneToMany (mappedBy = "costCenter")
     private Set<JournalEntry> journalEntries;
 }

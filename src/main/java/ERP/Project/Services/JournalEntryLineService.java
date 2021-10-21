@@ -7,7 +7,7 @@ import java.util.List;
 public interface JournalEntryLineService {
     JournalEntryLine saveJournalEntryLine(JournalEntryLine journalEntryLine);
     List<JournalEntryLine> getAllJournalEntryLines();
-    JournalEntryLine getJournalEntryLineById(long id);
-    JournalEntryLine updateJournalEntryLine(JournalEntryLine journalEntryLine, long id);
-    void deleteJournalEntryLine(long id);
+    JournalEntryLine getJournalEntryLineById(String id);
+    JournalEntryLine updateJournalEntryLine(JournalEntryLine journalEntryLine, String id);
+    void deleteJournalEntryLine(String id);
 }
