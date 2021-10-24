@@ -1,15 +1,13 @@
-package ERP.Project.Services.Impl;
+package ERP.Project.Account;
 
-import ERP.Project.Models.Account;
-import ERP.Project.Repositories.AccountRepository;
-import ERP.Project.Services.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
+    @Autowired
     private AccountRepository accountRepository;
 
     public AccountServiceImpl(AccountRepository accountRepository) {

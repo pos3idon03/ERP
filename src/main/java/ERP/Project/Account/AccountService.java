@@ -1,6 +1,4 @@
-package ERP.Project.Services;
-
-import ERP.Project.Models.Account;
+package ERP.Project.Account;
 
 import java.util.List;
 

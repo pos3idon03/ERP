@@ -1,15 +1,16 @@
-package ERP.Project.Services.Impl;
+package ERP.Project.CostCenter;
 
-import ERP.Project.Models.Account;
-import ERP.Project.Models.CostCenter;
-import ERP.Project.Repositories.CostCenterRepository;
-import ERP.Project.Services.CostCenterService;
+import ERP.Project.CostCenter.CostCenter;
+import ERP.Project.CostCenter.CostCenterRepository;
+import ERP.Project.CostCenter.CostCenterService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CostCenterServiceImpl implements CostCenterService {
+    @Autowired
     private CostCenterRepository costCenterRepository;
 
     public CostCenterServiceImpl(CostCenterRepository costCenterRepository) {
@@ -35,7 +36,7 @@ public class CostCenterServiceImpl implements CostCenterService {
     public CostCenter updateCostCenter(CostCenter costCenter, String id) {
         CostCenter existingCostCenter = costCenterRepository.getById(id);
         existingCostCenter.setCostCenterCode(costCenter.getCostCenterCode());
-        existingCostCenter.setDescription(costCenter.getDescription());
+        existingCostCenter.setCostCenterDescription(costCenter.getCostCenterDescription());
 
         costCenterRepository.save(existingCostCenter);
         return existingCostCenter;

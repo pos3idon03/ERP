@@ -1,5 +1,6 @@
-package ERP.Project.Models;
+package ERP.Project.Account;
 
+import ERP.Project.JournalEntryLine.JournalEntryLine;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -15,13 +16,13 @@ public class Account {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "ACCOUNT_PR_KEY")
+    @Column(name = "accountKey")
     private String accountCodeId;
     @Column(name = "accountCode", nullable = false)
     private String accountCode;
-    @Column(name = "description", nullable = false)
+    @Column(name = "accountDescription", nullable = false)
     private String accountDescription;
-    @Column(name = "creationDate")
+    @Column(name = "accountCreationDate")
     private LocalDateTime accountCreationDate = LocalDateTime.now();
     @OneToMany(mappedBy = "account")
     private Set<JournalEntryLine> journalEntryLines;

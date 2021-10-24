@@ -1,6 +1,5 @@
-package ERP.Project.Repositories;
+package ERP.Project.Account;
 
-import ERP.Project.Models.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AccountRepository extends JpaRepository<Account, String> {

@@ -1,7 +1,7 @@
-package ERP.Project.Services;
+package ERP.Project.CostCenter;
 
 
-import ERP.Project.Models.CostCenter;
+import ERP.Project.CostCenter.CostCenter;
 
 import java.util.List;
 

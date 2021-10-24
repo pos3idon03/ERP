@@ -1,7 +1,5 @@
-package ERP.Project.Controllers;
+package ERP.Project.Account;
 
-import ERP.Project.Models.Account;
-import ERP.Project.Services.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
