@@ -60,8 +60,6 @@ public class JournalEntryLineServiceImpl implements JournalEntryLineService {
     public JournalEntryLine updateJournalEntryLine(JournalEntryLine journalEntryLine, String id) {
         JournalEntryLine existingJournalEntryLine = journalEntryLineRepository.getById(id);
         existingJournalEntryLine.setJournalEntryLineAmount(journalEntryLine.getJournalEntryLineAmount());
-        existingJournalEntryLine.setJournalEntry(journalEntryLine.getJournalEntry());
-        existingJournalEntryLine.setAccount(journalEntryLine.getAccount());
 
         journalEntryLineRepository.save(existingJournalEntryLine);
         return existingJournalEntryLine;

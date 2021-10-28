@@ -26,10 +26,11 @@ public class AccountController {
     //build update account RestAPI
     //http://localhost:8080/api/accounts/1
     @PutMapping("{id}")
-    public  ResponseEntity<Account> updateAccount(@PathVariable("id") Account account,
-                                                  @RequestBody String code){
-        return new ResponseEntity<Account>(accountService.updateAccount(account, code), HttpStatus.OK);
+    public  ResponseEntity<Account> updateAccount(@PathVariable("id") String accountCode,
+                                                  @RequestBody Account account){
+        return new ResponseEntity<Account>(accountService.updateAccount(account, accountCode), HttpStatus.OK);
     }
+
 
     //build delete account RestAPI
     //http://localhost:8080/api/accounts/1

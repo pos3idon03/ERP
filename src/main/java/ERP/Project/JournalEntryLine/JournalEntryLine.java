@@ -4,6 +4,7 @@ package ERP.Project.JournalEntryLine;
 import ERP.Project.Account.Account;
 import ERP.Project.JournalEntry.JournalEntry;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class JournalEntryLine {
     @Id

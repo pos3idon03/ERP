@@ -14,6 +14,7 @@ public class CostCenterServiceImpl implements CostCenterService {
     private CostCenterRepository costCenterRepository;
 
     public CostCenterServiceImpl(CostCenterRepository costCenterRepository) {
+        super();
         this.costCenterRepository = costCenterRepository;
     }
 
@@ -41,6 +42,7 @@ public class CostCenterServiceImpl implements CostCenterService {
         costCenterRepository.save(existingCostCenter);
         return existingCostCenter;
     }
+
 
     @Override
     public void deleteCostCenter(String id) {

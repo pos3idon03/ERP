@@ -1,6 +1,7 @@
 package ERP.Project.CostCenter;
 
 import ERP.Project.JournalEntry.JournalEntry;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "costCenters")
 public class CostCenter implements Serializable {
     @Id

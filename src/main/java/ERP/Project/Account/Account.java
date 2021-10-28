@@ -1,6 +1,7 @@
 package ERP.Project.Account;
 
 import ERP.Project.JournalEntryLine.JournalEntryLine;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Data
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "accounts")
 public class Account {
     @Id

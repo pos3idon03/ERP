@@ -47,7 +47,6 @@ public class JournalEntryServiceImpl implements JournalEntryService {
     public JournalEntry updateJournalEntry(JournalEntry journalEntry, String id) {
         JournalEntry existingJournalEntry = journalEntryRepository.getById(id);
         existingJournalEntry.setJournalEntryDate(journalEntry.getJournalEntryDate());
-        existingJournalEntry.setCostCenter(journalEntry.getCostCenter());
         existingJournalEntry.setJournalEntryLines(journalEntry.getJournalEntryLines());
 
         journalEntryRepository.save(existingJournalEntry);
