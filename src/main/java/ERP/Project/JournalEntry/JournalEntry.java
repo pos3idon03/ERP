@@ -2,8 +2,7 @@ package ERP.Project.JournalEntry;
 
 import ERP.Project.CostCenter.CostCenter;
 import ERP.Project.JournalEntryLine.JournalEntryLine;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -22,37 +21,43 @@ import java.util.*;
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "journalEntries")
+@JsonTypeName("journal entry")
 public class JournalEntry implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "journalEntryKey")
     private String journalEntryId;
+
     @Column(name = "journalEntryDate", nullable = false)
-    private LocalDateTime journalEntryDate = LocalDateTime.now();
+    private LocalDate journalEntryDate = LocalDate.now();
+
     @Column(name = "journalEntryRecordDate", nullable = false)
-    private LocalDateTime journalEntryRecordDate = LocalDateTime.now();
+    private LocalDate journalEntryRecordDate = LocalDate.now();
+
     @OneToMany(mappedBy = "journalEntry")
+    @JsonManagedReference
     private Set<JournalEntryLine> journalEntryLines;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "costCenterCodeId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    @JsonBackReference(value="costCenter")
     private CostCenter costCenter;
 
-    public LocalDateTime getJournalEntryDate() {
+    public LocalDate getJournalEntryDate() {
         return journalEntryDate;
     }
 
-    public void setJournalEntryDate(LocalDateTime journalEntryDate) {
+    public void setJournalEntryDate(LocalDate journalEntryDate) {
         this.journalEntryDate = journalEntryDate;
     }
 
-    public LocalDateTime getJournalEntryRecordDate() {
+    public LocalDate getJournalEntryRecordDate() {
         return journalEntryRecordDate;
     }
 
-    public void setJournalEntryRecordDate(LocalDateTime journalEntryRecordDate) {
+    public void setJournalEntryRecordDate(LocalDate journalEntryRecordDate) {
         this.journalEntryRecordDate = journalEntryRecordDate;
     }
 

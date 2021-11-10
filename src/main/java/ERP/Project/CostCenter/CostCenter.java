@@ -1,7 +1,10 @@
 package ERP.Project.CostCenter;
 
 import ERP.Project.JournalEntry.JournalEntry;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -17,6 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "costCenters")
+@JsonTypeName("cost center")
 public class CostCenter implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -28,10 +33,9 @@ public class CostCenter implements Serializable {
     @Column (name = "costCenterDescription")
     private String costCenterDescription;
     @Column (name = "costCenterCreationDate")
-    private LocalDateTime costCenterCreationDate = LocalDateTime.now();
-    @OneToMany (mappedBy = "costCenter",
-                cascade = CascadeType.ALL,
-                orphanRemoval = true)
+    private LocalDate costCenterCreationDate = LocalDate.now();
+    @OneToMany (mappedBy = "costCenter", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="costCenter")
     private Set<JournalEntry> journalEntries;
 
     public String getCostCenterCode() {
@@ -50,11 +54,11 @@ public class CostCenter implements Serializable {
         this.costCenterDescription = costCenterDescription;
     }
 
-    public LocalDateTime getCostCenterCreationDate() {
+    public LocalDate getCostCenterCreationDate() {
         return costCenterCreationDate;
     }
 
-    public void setCostCenterCreationDate(LocalDateTime costCenterCreationDate) {
+    public void setCostCenterCreationDate(LocalDate costCenterCreationDate) {
         this.costCenterCreationDate = costCenterCreationDate;
     }
 

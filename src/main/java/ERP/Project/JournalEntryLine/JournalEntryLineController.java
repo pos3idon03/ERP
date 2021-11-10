@@ -1,11 +1,20 @@
 package ERP.Project.JournalEntryLine;
 
+import ERP.Project.Account.Account;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/*
+class JournalEntryDTO {
+    public String accountId;
+
+}
+
+
+ */
 @RestController
 public class JournalEntryLineController {
     private JournalEntryLineService journalEntryLineService;
@@ -18,7 +27,7 @@ public class JournalEntryLineController {
     @PostMapping("/api/{journalEntryId}/{accountId}/journalEntryLine")
     public ResponseEntity<JournalEntryLine> createJournalEntryLine(@PathVariable (value = "journalEntryId") String journalEntryId,
                                                                    @PathVariable (value = "accountId") String accountId,
-                                                                   @RequestBody JournalEntryLine journalEntryLine ){
+                                                                   @RequestBody JournalEntryLine journalEntryLine){
         return new ResponseEntity<JournalEntryLine>(journalEntryLineService.saveJournalEntryLine(journalEntryLine, journalEntryId, accountId), HttpStatus.CREATED);
     }
 

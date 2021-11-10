@@ -8,6 +8,7 @@ import ERP.Project.JournalEntry.JournalEntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -43,6 +44,7 @@ public class JournalEntryServiceImpl implements JournalEntryService {
         return journalEntryRepository.getById(id);
     }
 
+
     @Override
     public JournalEntry updateJournalEntry(JournalEntry journalEntry, String id) {
         JournalEntry existingJournalEntry = journalEntryRepository.getById(id);
@@ -56,6 +58,11 @@ public class JournalEntryServiceImpl implements JournalEntryService {
     @Override
     public void deleteJournalEntry(String id) {
         journalEntryRepository.deleteById(id);
+    }
+
+    @Override
+    public List<JournalEntry> getJournalEntriesDatePeriod(LocalDate startDate, LocalDate endDate) {
+        return null;
     }
 
 

@@ -37,13 +37,6 @@ public class JournalEntryLineServiceImpl implements JournalEntryLineService {
         journalEntryLine.setJournalEntry(existingJournalEntry);
         journalEntryLine.setAccount(existingAccount);
         return journalEntryLineRepository.save(journalEntryLine);
-        /*
-        return journalEntryRepository.findById(journalEntryId).map(journalEntry-> {
-            journalEntryLine.setJournalEntry(journalEntry);
-            return journalEntryLineRepository.save(journalEntryLine);
-        }).orElseThrow(() -> new ResourceNotFoundException("JournalEntryId" + journalEntryId + "not found"));
-
-         */
     }
 
     @Override

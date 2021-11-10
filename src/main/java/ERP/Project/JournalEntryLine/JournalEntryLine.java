@@ -3,8 +3,7 @@ package ERP.Project.JournalEntryLine;
 
 import ERP.Project.Account.Account;
 import ERP.Project.JournalEntry.JournalEntry;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,28 +13,31 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
+@JsonTypeName("journal entry line")
 public class JournalEntryLine {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "journalEntryLineKey")
     private String journalEntryLineId;
+
     @Column(name = "journalEntryLineAmount")
     private Float journalEntryLineAmount;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "accountCodeId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    @JsonBackReference(value = "account")
     private Account account;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "journalEntryId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    @JsonBackReference
     private JournalEntry journalEntry;
 
     public Float getJournalEntryLineAmount() {
