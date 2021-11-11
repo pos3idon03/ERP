@@ -57,5 +57,10 @@ public class JournalEntryLineController {
         return journalEntryLineService.getAllJournalEntryLines();
     }
 
+    @GetMapping("/api/journalEntryLinesTest/{account}")
+    public List<JournalEntryLine> getAllJournalEntryLinesTest(@PathVariable(value = "account") String account){
+        return journalEntryLineService.filterByAccount(account);
+    }
+
 
 }

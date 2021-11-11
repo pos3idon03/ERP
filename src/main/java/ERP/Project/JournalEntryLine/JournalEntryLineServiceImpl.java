@@ -62,4 +62,12 @@ public class JournalEntryLineServiceImpl implements JournalEntryLineService {
     public void deleteJournalEntryLine(String id) {
         journalEntryLineRepository.deleteById(id);
     }
+
+    @Override
+    public List<JournalEntryLine> filterByAccount(String account) {
+        List<JournalEntryLine> result = journalEntryLineRepository.findAll();
+        return result;
+    }
+
+
 }

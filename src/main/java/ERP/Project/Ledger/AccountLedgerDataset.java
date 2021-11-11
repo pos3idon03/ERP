@@ -11,14 +11,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountLedgerDataset {
+    private String account;
     private List<JournalEntry> journalEntries;
-    private List<Account> accounts;
-    private List<JournalEntryLine> journalEntryLines;
 
-    public AccountLedgerDataset(List<JournalEntry> journalEntries, List<Account> accounts, List<JournalEntryLine> journalEntryLines) {
-        this.journalEntries = journalEntries;
-        this.accounts = accounts;
-        this.journalEntryLines = journalEntryLines;
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public List<JournalEntry> getJournalEntries() {
@@ -27,21 +29,5 @@ public class AccountLedgerDataset {
 
     public void setJournalEntries(List<JournalEntry> journalEntries) {
         this.journalEntries = journalEntries;
-    }
-
-    public List<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-    }
-
-    public List<JournalEntryLine> getJournalEntryLines() {
-        return journalEntryLines;
-    }
-
-    public void setJournalEntryLines(List<JournalEntryLine> journalEntryLines) {
-        this.journalEntryLines = journalEntryLines;
     }
 }

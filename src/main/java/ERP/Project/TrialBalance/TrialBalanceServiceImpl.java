@@ -49,7 +49,6 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
         this.journalEntryLineService = journalEntryLineService;
     }
 
-
     @Override
     public TrialBalance getJournalEntriesDatePerAccount(LocalDate startDate, LocalDate endDate){
         List<JournalEntry> allJournalEntries = journalEntryService.getAllJournalEntries();
@@ -78,7 +77,6 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
         }
         return figures;
     }
-
     private List<Figure> getFigureListPerCostCenter(List<JournalEntry> result) {
         List<Figure> figures = new ArrayList<>();
         for (JournalEntry journalEntry : result) {
@@ -91,21 +89,18 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
         }
         return figures;
     }
-
     private Map<String,Long> sumFiguresPerAccount(List<JournalEntry> result){
         List<Figure> figures = getFigureListPerAccount(result);
         Map<String, Long> totalByAccount = figures.stream().collect(Collectors.groupingBy(Figure::getCode,
                 Collectors.summingLong(Figure::getAmount)));
         return totalByAccount;
     }
-
     private Map<String,Long> sumFiguresPerCostCenter(List<JournalEntry> result){
         List<Figure> figures = getFigureListPerCostCenter(result);
         Map<String, Long> totalByCostCenter = figures.stream().collect(Collectors.groupingBy(Figure::getCode,
                 Collectors.summingLong(Figure::getAmount)));
         return totalByCostCenter;
     }
-
     private String checkSum(Map<String, Long> figuresList){
         Long sum = 0L;
         for(Long l : figuresList.values()){
@@ -125,7 +120,6 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
 
         return status;
     }
-
     private List<JournalEntry> filterJournalEntryByDate(LocalDate startDate, LocalDate endDate,List<JournalEntry> allJournalEntries){
         Predicate<JournalEntry> byDate = journalEntry ->
                 journalEntry.getJournalEntryDate().isAfter(startDate.minusDays(1)) && journalEntry.getJournalEntryDate().isBefore(endDate.plusDays(1));
