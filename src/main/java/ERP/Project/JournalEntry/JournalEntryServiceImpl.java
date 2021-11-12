@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -62,8 +63,20 @@ public class JournalEntryServiceImpl implements JournalEntryService {
 
     @Override
     public List<JournalEntry> getJournalEntriesDatePeriod(LocalDate startDate, LocalDate endDate) {
-        return null;
+        List<JournalEntry> journalEntries = journalEntryRepository.findAll();
+        List<JournalEntry> filteredJournalEntries = new ArrayList<JournalEntry>();
+
+        for(int i=0; i < journalEntries.size(); i++){
+            if((journalEntries.get(i).getJournalEntryDate().isAfter(startDate.minusDays(1))) &&
+                    (journalEntries.get(i).getJournalEntryDate().isBefore(endDate.plusDays(1)))){
+                filteredJournalEntries.add(journalEntries.get(i));
+            }
+        }
+
+        return filteredJournalEntries;
     }
+
+
 
 
 }

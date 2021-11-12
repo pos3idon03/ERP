@@ -1,9 +1,11 @@
 package ERP.Project.CostCenter;
 
+import ERP.Project.Ledger.CostCenterLedger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -53,5 +55,10 @@ public class CostCenterController {
         return costCenterService.getAllCostCenters();
     }
 
-
+    @GetMapping("/api/costCenterLedger/{startDate}/{endDate}/{costCenterId}")
+    public ResponseEntity<CostCenterLedger> getCostCenterLedgerByDate(@PathVariable(value = "startDate")LocalDate startDate,
+                                                                      @PathVariable(value = "endDate")LocalDate endDate,
+                                                                      @PathVariable(value = "costCenterId") String costCenterId){
+        return new ResponseEntity<CostCenterLedger>(costCenterService.getCostCenterLedgerByDate(costCenterId,startDate,endDate), HttpStatus.OK);
+    }
 }

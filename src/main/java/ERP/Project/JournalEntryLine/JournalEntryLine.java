@@ -13,40 +13,28 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Entity
-@JsonTypeName("journal entry line")
 public class JournalEntryLine {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "journalEntryLineKey")
-    private String journalEntryLineId;
-
-    @Column(name = "journalEntryLineAmount")
-    private Float journalEntryLineAmount;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "accountCodeId", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference(value = "account")
-    private Account account;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "JELId")
+    private int id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "journalEntryId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonBackReference
+    @JsonBackReference(value="journalEntry")
     private JournalEntry journalEntry;
 
-    public Float getJournalEntryLineAmount() {
-        return journalEntryLineAmount;
-    }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "accountCodeId", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference(value="account")
+    private Account account;
 
-    public void setJournalEntryLineAmount(Float journalEntryLineAmount) {
-        this.journalEntryLineAmount = journalEntryLineAmount;
-    }
+    private Long amount;
 
     public Account getAccount() {
         return account;
@@ -54,6 +42,14 @@ public class JournalEntryLine {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
     }
 
     public JournalEntry getJournalEntry() {

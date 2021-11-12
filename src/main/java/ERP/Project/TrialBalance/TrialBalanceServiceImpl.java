@@ -1,17 +1,13 @@
 package ERP.Project.TrialBalance;
 
-import ERP.Project.Account.Account;
 import ERP.Project.Account.AccountRepository;
 import ERP.Project.Account.AccountService;
 import ERP.Project.JournalEntry.JournalEntry;
 import ERP.Project.JournalEntry.JournalEntryRepository;
 import ERP.Project.JournalEntry.JournalEntryService;
 import ERP.Project.JournalEntryLine.JournalEntryLine;
-import ERP.Project.JournalEntryLine.JournalEntryLineRepository;
-import ERP.Project.JournalEntryLine.JournalEntryLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -30,37 +26,27 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
 
     private JournalEntryService journalEntryService;
 
-    @Autowired
-    private JournalEntryLineRepository journalEntryLineRepository;
-
-    private JournalEntryLineService journalEntryLineService;
 
     public TrialBalanceServiceImpl(AccountRepository accountRepository,
                                    AccountService accountService,
                                    JournalEntryRepository journalEntryRepository,
-                                   JournalEntryService journalEntryService,
-                                   JournalEntryLineRepository journalEntryLineRepository,
-                                   JournalEntryLineService journalEntryLineService) {
+                                   JournalEntryService journalEntryService) {
         this.accountRepository = accountRepository;
         this.accountService = accountService;
         this.journalEntryRepository = journalEntryRepository;
         this.journalEntryService = journalEntryService;
-        this.journalEntryLineRepository = journalEntryLineRepository;
-        this.journalEntryLineService = journalEntryLineService;
     }
 
     @Override
     public TrialBalance getJournalEntriesDatePerAccount(LocalDate startDate, LocalDate endDate){
-        List<JournalEntry> allJournalEntries = journalEntryService.getAllJournalEntries();
-        List<JournalEntry> result = filterJournalEntryByDate(startDate, endDate, allJournalEntries);
+        List<JournalEntry> result = journalEntryService.getJournalEntriesDatePeriod(startDate,endDate);
         Map<String, Long> figures = sumFiguresPerAccount(result);
         String status = checkSum(figures);
         return new TrialBalance(startDate, endDate, figures, status);
     }
     @Override
     public TrialBalance getJournalEntriesDatePerCostCenter(LocalDate startDate, LocalDate endDate){
-        List<JournalEntry> allJournalEntries = journalEntryService.getAllJournalEntries();
-        List<JournalEntry> result = filterJournalEntryByDate(startDate, endDate, allJournalEntries);
+        List<JournalEntry> result = journalEntryService.getJournalEntriesDatePeriod(startDate,endDate);
         Map<String, Long> figures = sumFiguresPerCostCenter(result);
         return new TrialBalance(startDate, endDate, figures, "OK");
     }
@@ -71,7 +57,7 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
             for (JournalEntryLine journalEntryLine : journalEntry.getJournalEntryLines()) {
                 figures.add(new Figure(
                     journalEntryLine.getAccount().getAccountCode(),
-                    journalEntryLine.getJournalEntryLineAmount().longValue()
+                    journalEntryLine.getAmount().longValue()
                 ));
             }
         }
@@ -83,7 +69,7 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
             for (JournalEntryLine journalEntryLine : journalEntry.getJournalEntryLines()) {
                 figures.add(new Figure(
                         journalEntry.getCostCenter().getCostCenterCode(),
-                        journalEntryLine.getJournalEntryLineAmount().longValue()
+                        journalEntryLine.getAmount().longValue()
                 ));
             }
         }
@@ -119,13 +105,6 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
         }
 
         return status;
-    }
-    private List<JournalEntry> filterJournalEntryByDate(LocalDate startDate, LocalDate endDate,List<JournalEntry> allJournalEntries){
-        Predicate<JournalEntry> byDate = journalEntry ->
-                journalEntry.getJournalEntryDate().isAfter(startDate.minusDays(1)) && journalEntry.getJournalEntryDate().isBefore(endDate.plusDays(1));
-        List<JournalEntry> result = allJournalEntries.stream().filter(byDate).collect(Collectors.toList());
-
-        return result;
     }
 }
 

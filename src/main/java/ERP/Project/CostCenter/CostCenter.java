@@ -38,6 +38,14 @@ public class CostCenter implements Serializable {
     @JsonManagedReference(value="costCenter")
     private Set<JournalEntry> journalEntries;
 
+    public String getCostCenterCodeId() {
+        return costCenterCodeId;
+    }
+
+    public void setCostCenterCodeId(String costCenterCodeId) {
+        this.costCenterCodeId = costCenterCodeId;
+    }
+
     public String getCostCenterCode() {
         return costCenterCode;
     }

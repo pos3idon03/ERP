@@ -4,7 +4,6 @@ import ERP.Project.CostCenter.CostCenter;
 import ERP.Project.JournalEntryLine.JournalEntryLine;
 import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
@@ -35,8 +34,8 @@ public class JournalEntry implements Serializable {
     @Column(name = "journalEntryRecordDate", nullable = false)
     private LocalDate journalEntryRecordDate = LocalDate.now();
 
-    @OneToMany(mappedBy = "journalEntry")
-    @JsonManagedReference
+    @OneToMany (mappedBy = "journalEntry", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="journalEntry")
     private Set<JournalEntryLine> journalEntryLines;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -44,6 +43,15 @@ public class JournalEntry implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonBackReference(value="costCenter")
     private CostCenter costCenter;
+
+
+    public String getJournalEntryId() {
+        return journalEntryId;
+    }
+
+    public void setJournalEntryId(String journalEntryId) {
+        this.journalEntryId = journalEntryId;
+    }
 
     public LocalDate getJournalEntryDate() {
         return journalEntryDate;
@@ -76,4 +84,6 @@ public class JournalEntry implements Serializable {
     public void setCostCenter(CostCenter costCenter) {
         this.costCenter = costCenter;
     }
+
+
 }

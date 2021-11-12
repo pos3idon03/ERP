@@ -1,15 +1,13 @@
 package ERP.Project.JournalEntryLine;
 
-import ERP.Project.Account.Account;
-import ERP.Project.JournalEntryLine.JournalEntryLine;
+import ERP.Project.JournalEntry.JournalEntry;
 
 import java.util.List;
 
 public interface JournalEntryLineService {
-    JournalEntryLine saveJournalEntryLine(JournalEntryLine journalEntryLine, String journalEntryId, String accountId);
-    List<JournalEntryLine> getAllJournalEntryLines();
+    JournalEntryLine saveJournalEntryLine(JournalEntryLine journalEntry, String JournalEntryId,  String AccountId);
+    List<JournalEntryLine> getAllJournalEntriesLines();
     JournalEntryLine getJournalEntryLineById(String id);
     JournalEntryLine updateJournalEntryLine(JournalEntryLine journalEntryLine, String id);
-    void deleteJournalEntryLine(String id);
-    List<JournalEntryLine> filterByAccount(String account);
+    void deleteJournalEntryLineById(String id);
 }

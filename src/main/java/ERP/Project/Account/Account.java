@@ -1,21 +1,16 @@
 package ERP.Project.Account;
 
 import ERP.Project.JournalEntryLine.JournalEntryLine;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -30,17 +25,19 @@ public class Account implements Serializable{
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "accountKey")
     private String accountCodeId;
+
     @Column(name = "accountCode", nullable = false)
     private String accountCode;
+
     @Column(name = "accountDescription", nullable = false)
     private String accountDescription;
+
     @Column(name = "accountCreationDate")
     private LocalDate accountCreationDate = LocalDate.now();
-    @OneToMany(mappedBy = "account",
-               fetch = FetchType.LAZY,
-               cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "account")
-    private Set<JournalEntryLine> journalEntryLines;
+
+    @OneToMany (mappedBy = "account", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="account")
+    Set<JournalEntryLine> journalEntryLines;
 
     public String getAccountCodeId() {
         return accountCodeId;

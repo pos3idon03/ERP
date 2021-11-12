@@ -23,7 +23,7 @@ public class JournalEntryController {
 
     //build create journal entry mapped to cost center
     //http://localhost:8080/api/{costCenterId}/journalEntry
-    @PostMapping("/api/{CostCenterId}/journalEntry")
+    @PostMapping("/api/costCenterId:{CostCenterId}/journalEntry")
     public ResponseEntity<JournalEntry> createJournalEntry(@PathVariable (value = "CostCenterId") String costCenterId,
                                                            @RequestBody JournalEntry journalEntry){
         return new ResponseEntity<JournalEntry>(journalEntryService.saveJournalEntry(journalEntry, costCenterId), HttpStatus.CREATED);

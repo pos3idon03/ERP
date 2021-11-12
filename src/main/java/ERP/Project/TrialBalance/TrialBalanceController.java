@@ -19,29 +19,21 @@ public class TrialBalanceController {
         this.triaBalanceService = triaBalanceService;
     }
 
-    @GetMapping("/api/trialBalanceAccount/{startDate}/{endDate}")
+    @GetMapping("/api/trialBalanceAccount/sDate:{startDate}/eDate:{endDate}")
     public TrialBalance getTrialBalanceAccount(@PathVariable (value = "startDate") String startDate,
-                                              @PathVariable (value = "endDate") String endDate){
+                                               @PathVariable (value = "endDate") String endDate){
         LocalDate reportStartDate = LocalDate.parse(startDate);
         LocalDate reportEndDate = LocalDate.parse(endDate);
 
         return triaBalanceService.getJournalEntriesDatePerAccount(reportStartDate, reportEndDate);
     }
 
-    @GetMapping("/api/trialBalanceCostCenter/{startDate}/{endDate}")
+    @GetMapping("/api/trialBalanceCostCenter/sDate:{startDate}/eDate:{endDate}")
     public TrialBalance getTrialBalanceCostCenter(@PathVariable (value = "startDate") String startDate,
-                                        @PathVariable (value = "endDate") String endDate){
+                                                  @PathVariable (value = "endDate") String endDate){
         LocalDate reportStartDate = LocalDate.parse(startDate);
         LocalDate reportEndDate = LocalDate.parse(endDate);
 
         return triaBalanceService.getJournalEntriesDatePerCostCenter(reportStartDate, reportEndDate);
-    }
-
-
-
-
-    @GetMapping("/api/trialBalance")
-    public LocalDate getTrialBalance(){
-        return LocalDate.now();
     }
 }

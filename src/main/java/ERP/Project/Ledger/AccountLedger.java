@@ -1,6 +1,5 @@
 package ERP.Project.Ledger;
 
-import ERP.Project.Account.Account;
 import ERP.Project.JournalEntry.JournalEntry;
 import ERP.Project.JournalEntryLine.JournalEntryLine;
 import lombok.AllArgsConstructor;
@@ -12,40 +11,23 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountLedger {
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private AccountLedgerDataset accountLedgerDataset;
-    private String status;
+    private String Account;
+    private List<JournalEntry> journalEntry;
 
-    public LocalDate getStartDate() {
-        return startDate;
+
+    public List<JournalEntry> getJournalEntry() {
+        return journalEntry;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setJournalEntry(List<JournalEntry> journalEntry) {
+        this.journalEntry = journalEntry;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
+    public String getAccount() {
+        return Account;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public AccountLedgerDataset getAccountLedgerDataset() {
-        return accountLedgerDataset;
-    }
-
-    public void setAccountLedgerDataset(AccountLedgerDataset accountLedgerDataset) {
-        this.accountLedgerDataset = accountLedgerDataset;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setAccount(String account) {
+        Account = account;
     }
 }

@@ -1,17 +1,28 @@
 package ERP.Project.CostCenter;
 
+import ERP.Project.Account.Account;
 import ERP.Project.CostCenter.CostCenter;
 import ERP.Project.CostCenter.CostCenterRepository;
 import ERP.Project.CostCenter.CostCenterService;
+import ERP.Project.JournalEntry.JournalEntry;
+import ERP.Project.JournalEntry.JournalEntryRepository;
+import ERP.Project.JournalEntryLine.JournalEntryLine;
+import ERP.Project.Ledger.AccountLedger;
+import ERP.Project.Ledger.CostCenterLedger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CostCenterServiceImpl implements CostCenterService {
     @Autowired
     private CostCenterRepository costCenterRepository;
+
+    @Autowired
+    private JournalEntryRepository journalEntryRepository;
 
     public CostCenterServiceImpl(CostCenterRepository costCenterRepository) {
         super();
@@ -43,9 +54,49 @@ public class CostCenterServiceImpl implements CostCenterService {
         return existingCostCenter;
     }
 
-
     @Override
     public void deleteCostCenter(String id) {
         costCenterRepository.deleteById(id);
     }
+
+    @Override
+    public CostCenterLedger getCostCenterLedger(String costCenterId) {
+        CostCenterLedger costCenterLedger = new CostCenterLedger();
+        CostCenter costCenter = costCenterRepository.getById(costCenterId);
+        costCenterLedger.setCostCenter(costCenter.getCostCenterCode());
+        List<JournalEntry> journalEntries = journalEntryRepository.findAll();
+
+        List<JournalEntry> filteredJournalEntries = new ArrayList<JournalEntry>();
+
+        for(int i = 0; i < journalEntries.size(); i++){
+            if(journalEntries.get(i).getCostCenter().getCostCenterCodeId() == costCenterId){
+               filteredJournalEntries.add(journalEntries.get(i));
+            }
+        }
+
+        costCenterLedger.setJournalEntry(filteredJournalEntries);
+
+        return costCenterLedger;
+    }
+
+    @Override
+    public CostCenterLedger getCostCenterLedgerByDate(String costCenterId, LocalDate startDate, LocalDate endDate) {
+        CostCenterLedger costCenterLedger = getCostCenterLedger(costCenterId);
+       /*
+        for(int i=0; i < costCenterLedger.getJournalEntry().size(); i++){
+            if(costCenterLedger.getJournalEntry().get(i).getJournalEntryDate().isBefore(startDate.minusDays(1)) &&
+            costCenterLedger.getJournalEntry().get(i).getJournalEntryDate().isAfter(endDate.plusDays(1))){
+                costCenterLedger.getJournalEntry().remove(costCenterLedger.getJournalEntry().get(i));
+            }
+        }
+
+        */
+
+        return costCenterLedger;
+    }
+
+
 }
+
+
+
