@@ -56,7 +56,7 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
         for (JournalEntry journalEntry : result) {
             for (JournalEntryLine journalEntryLine : journalEntry.getJournalEntryLines()) {
                 figures.add(new Figure(
-                    journalEntryLine.getAccount().getAccountCode(),
+                    journalEntryLine.getAccount().getCode(),
                     journalEntryLine.getAmount().longValue()
                 ));
             }
@@ -68,7 +68,7 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
         for (JournalEntry journalEntry : result) {
             for (JournalEntryLine journalEntryLine : journalEntry.getJournalEntryLines()) {
                 figures.add(new Figure(
-                        journalEntry.getCostCenter().getCostCenterCode(),
+                        journalEntry.getCostCenter().getCode(),
                         journalEntryLine.getAmount().longValue()
                 ));
             }
@@ -105,6 +105,6 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
         }
 
         return status;
-    }
+    } //use an enum
 }
 

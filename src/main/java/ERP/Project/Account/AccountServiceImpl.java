@@ -1,5 +1,6 @@
 package ERP.Project.Account;
 
+import ERP.Project.Exception.ResourceNotFoundException;
 import ERP.Project.JournalEntry.JournalEntry;
 import ERP.Project.JournalEntry.JournalEntryRepository;
 import ERP.Project.JournalEntryLine.JournalEntryLine;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -34,7 +36,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account saveAccount(Account account) {
-        return accountRepository.save(account);
+      return accountRepository.save(account);
     }
 
     @Override
@@ -44,14 +46,20 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account getAccountById(String id) {
-        return accountRepository.getById(id);
+        Optional<Account> account = accountRepository.findById(id);
+        if(account.isPresent()){
+            return account.get();
+        }
+        else{
+            throw new ResourceNotFoundException("Account ID not found:" + id);
+        }
     }
 
     @Override
     public Account updateAccount(Account account, String id) {
         Account existingAccount = accountRepository.getById(id);
-        existingAccount.setAccountCode(account.getAccountCode());
-        existingAccount.setAccountDescription(account.getAccountDescription());
+        existingAccount.setCode(account.getCode());
+        existingAccount.setDescription(account.getDescription());
 
         accountRepository.save(existingAccount);
         return existingAccount;
@@ -63,16 +71,16 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountLedger getJournalEntriesPerAccount(String accountId){
+    public AccountLedger getJournalEntriesPerAccount(String accountId){ //createLedgerPerAccount
         AccountLedger accountLedger = new AccountLedger();
         Account account = accountRepository.getById(accountId);
-        accountLedger.setAccount(account.getAccountCode());
+        accountLedger.setAccount(account.getCode());
         List<JournalEntryLine> journalEntryLines = journalEntryLineRepository.findAll();
 
         List<JournalEntryLine> filteredJournalEntryLines = new ArrayList<JournalEntryLine>();
 
         for(int i = 0; i < journalEntryLines.size(); i++){
-            if(journalEntryLines.get(i).getAccount().getAccountCodeId() == accountId){
+            if(journalEntryLines.get(i).getAccount().getId() == accountId){
                 filteredJournalEntryLines.add(journalEntryLines.get(i));
             }
         }
@@ -83,7 +91,7 @@ public class AccountServiceImpl implements AccountService {
 
         for(int i =0; i < filteredJournalEntryLines.size(); i++){
             for(int j=0; j < journalEntries.size(); j++){
-                if(filteredJournalEntryLines.get(i).getJournalEntry().getJournalEntryId() == journalEntries.get(j).getJournalEntryId()){
+                if(filteredJournalEntryLines.get(i).getJournalEntry().getId() == journalEntries.get(j).getId()){
                     filteredJournalEntries.add(journalEntries.get(j));
                 }
             }

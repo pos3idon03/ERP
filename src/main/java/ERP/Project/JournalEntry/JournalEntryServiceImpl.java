@@ -49,7 +49,7 @@ public class JournalEntryServiceImpl implements JournalEntryService {
     @Override
     public JournalEntry updateJournalEntry(JournalEntry journalEntry, String id) {
         JournalEntry existingJournalEntry = journalEntryRepository.getById(id);
-        existingJournalEntry.setJournalEntryDate(journalEntry.getJournalEntryDate());
+        existingJournalEntry.setDate(journalEntry.getDate());
         existingJournalEntry.setJournalEntryLines(journalEntry.getJournalEntryLines());
 
         journalEntryRepository.save(existingJournalEntry);
@@ -67,8 +67,8 @@ public class JournalEntryServiceImpl implements JournalEntryService {
         List<JournalEntry> filteredJournalEntries = new ArrayList<JournalEntry>();
 
         for(int i=0; i < journalEntries.size(); i++){
-            if((journalEntries.get(i).getJournalEntryDate().isAfter(startDate.minusDays(1))) &&
-                    (journalEntries.get(i).getJournalEntryDate().isBefore(endDate.plusDays(1)))){
+            if((journalEntries.get(i).getDate().isAfter(startDate.minusDays(1))) &&
+                    (journalEntries.get(i).getDate().isBefore(endDate.plusDays(1)))){
                 filteredJournalEntries.add(journalEntries.get(i));
             }
         }

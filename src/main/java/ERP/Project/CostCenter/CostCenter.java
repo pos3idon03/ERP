@@ -27,47 +27,47 @@ public class CostCenter implements Serializable {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "costCenterKey")
-    private String costCenterCodeId;
+    private String Id;
     @Column (name = "costCenterCode")
-    private String costCenterCode;
+    private String Code;
     @Column (name = "costCenterDescription")
-    private String costCenterDescription;
+    private String Description;
     @Column (name = "costCenterCreationDate")
-    private LocalDate costCenterCreationDate = LocalDate.now();
+    private LocalDate CreationDate = LocalDate.now();
     @OneToMany (mappedBy = "costCenter", cascade = CascadeType.ALL)
     @JsonManagedReference(value="costCenter")
     private Set<JournalEntry> journalEntries;
 
-    public String getCostCenterCodeId() {
-        return costCenterCodeId;
+    public String getId() {
+        return Id;
     }
 
-    public void setCostCenterCodeId(String costCenterCodeId) {
-        this.costCenterCodeId = costCenterCodeId;
+    public void setId(String id) {
+        Id = id;
     }
 
-    public String getCostCenterCode() {
-        return costCenterCode;
+    public String getCode() {
+        return Code;
     }
 
-    public void setCostCenterCode(String costCenterCode) {
-        this.costCenterCode = costCenterCode;
+    public void setCode(String code) {
+        Code = code;
     }
 
-    public String getCostCenterDescription() {
-        return costCenterDescription;
+    public String getDescription() {
+        return Description;
     }
 
-    public void setCostCenterDescription(String costCenterDescription) {
-        this.costCenterDescription = costCenterDescription;
+    public void setDescription(String description) {
+        Description = description;
     }
 
-    public LocalDate getCostCenterCreationDate() {
-        return costCenterCreationDate;
+    public LocalDate getCreationDate() {
+        return CreationDate;
     }
 
-    public void setCostCenterCreationDate(LocalDate costCenterCreationDate) {
-        this.costCenterCreationDate = costCenterCreationDate;
+    public void setCreationDate(LocalDate creationDate) {
+        CreationDate = creationDate;
     }
 
     public Set<JournalEntry> getJournalEntries() {

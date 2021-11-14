@@ -24,51 +24,51 @@ public class Account implements Serializable{
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "accountKey")
-    private String accountCodeId;
+    private String Id;
 
     @Column(name = "accountCode", nullable = false)
-    private String accountCode;
+    private String Code;
 
     @Column(name = "accountDescription", nullable = false)
-    private String accountDescription;
+    private String Description;
 
     @Column(name = "accountCreationDate")
-    private LocalDate accountCreationDate = LocalDate.now();
+    private LocalDate CreationDate = LocalDate.now();
 
     @OneToMany (mappedBy = "account", cascade = CascadeType.ALL)
     @JsonManagedReference(value="account")
     Set<JournalEntryLine> journalEntryLines;
 
-    public String getAccountCodeId() {
-        return accountCodeId;
+    public String getId() {
+        return Id;
     }
 
-    public void setAccountCodeId(String accountCodeId) {
-        this.accountCodeId = accountCodeId;
+    public void setId(String id) {
+        Id = id;
     }
 
-    public String getAccountCode() {
-        return accountCode;
+    public String getCode() {
+        return Code;
     }
 
-    public void setAccountCode(String accountCode) {
-        this.accountCode = accountCode;
+    public void setCode(String code) {
+        Code = code;
     }
 
-    public String getAccountDescription() {
-        return accountDescription;
+    public String getDescription() {
+        return Description;
     }
 
-    public void setAccountDescription(String accountDescription) {
-        this.accountDescription = accountDescription;
+    public void setDescription(String description) {
+        Description = description;
     }
 
-    public LocalDate getAccountCreationDate() {
-        return accountCreationDate;
+    public LocalDate getCreationDate() {
+        return CreationDate;
     }
 
-    public void setAccountCreationDate(LocalDate accountCreationDate) {
-        this.accountCreationDate = accountCreationDate;
+    public void setCreationDate(LocalDate creationDate) {
+        CreationDate = creationDate;
     }
 
     public Set<JournalEntryLine> getJournalEntryLines() {

@@ -26,13 +26,13 @@ public class JournalEntry implements Serializable {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "journalEntryKey")
-    private String journalEntryId;
+    private String Id;
 
     @Column(name = "journalEntryDate", nullable = false)
-    private LocalDate journalEntryDate = LocalDate.now();
+    private LocalDate Date = LocalDate.now();
 
     @Column(name = "journalEntryRecordDate", nullable = false)
-    private LocalDate journalEntryRecordDate = LocalDate.now();
+    private LocalDate RecordDate = LocalDate.now();
 
     @OneToMany (mappedBy = "journalEntry", cascade = CascadeType.ALL)
     @JsonManagedReference(value="journalEntry")
@@ -45,28 +45,28 @@ public class JournalEntry implements Serializable {
     private CostCenter costCenter;
 
 
-    public String getJournalEntryId() {
-        return journalEntryId;
+    public String getId() {
+        return Id;
     }
 
-    public void setJournalEntryId(String journalEntryId) {
-        this.journalEntryId = journalEntryId;
+    public void setId(String id) {
+        Id = id;
     }
 
-    public LocalDate getJournalEntryDate() {
-        return journalEntryDate;
+    public LocalDate getDate() {
+        return Date;
     }
 
-    public void setJournalEntryDate(LocalDate journalEntryDate) {
-        this.journalEntryDate = journalEntryDate;
+    public void setDate(LocalDate date) {
+        Date = date;
     }
 
-    public LocalDate getJournalEntryRecordDate() {
-        return journalEntryRecordDate;
+    public LocalDate getRecordDate() {
+        return RecordDate;
     }
 
-    public void setJournalEntryRecordDate(LocalDate journalEntryRecordDate) {
-        this.journalEntryRecordDate = journalEntryRecordDate;
+    public void setRecordDate(LocalDate recordDate) {
+        RecordDate = recordDate;
     }
 
     public Set<JournalEntryLine> getJournalEntryLines() {

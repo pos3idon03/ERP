@@ -47,8 +47,8 @@ public class CostCenterServiceImpl implements CostCenterService {
     @Override
     public CostCenter updateCostCenter(CostCenter costCenter, String id) {
         CostCenter existingCostCenter = costCenterRepository.getById(id);
-        existingCostCenter.setCostCenterCode(costCenter.getCostCenterCode());
-        existingCostCenter.setCostCenterDescription(costCenter.getCostCenterDescription());
+        existingCostCenter.setCode(costCenter.getCode());
+        existingCostCenter.setDescription(costCenter.getDescription());
 
         costCenterRepository.save(existingCostCenter);
         return existingCostCenter;
@@ -63,13 +63,13 @@ public class CostCenterServiceImpl implements CostCenterService {
     public CostCenterLedger getCostCenterLedger(String costCenterId) {
         CostCenterLedger costCenterLedger = new CostCenterLedger();
         CostCenter costCenter = costCenterRepository.getById(costCenterId);
-        costCenterLedger.setCostCenter(costCenter.getCostCenterCode());
+        costCenterLedger.setCostCenter(costCenter.getCode());
         List<JournalEntry> journalEntries = journalEntryRepository.findAll();
 
         List<JournalEntry> filteredJournalEntries = new ArrayList<JournalEntry>();
 
         for(int i = 0; i < journalEntries.size(); i++){
-            if(journalEntries.get(i).getCostCenter().getCostCenterCodeId() == costCenterId){
+            if(journalEntries.get(i).getCostCenter().getId() == costCenterId){
                filteredJournalEntries.add(journalEntries.get(i));
             }
         }
