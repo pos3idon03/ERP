@@ -26,13 +26,13 @@ public class Account implements Serializable{
     @Column(name = "accountKey")
     private String Id;
 
-    @Column(name = "accountCode", nullable = false)
+    @Column(name = "Code", nullable = false)
     private String Code;
 
-    @Column(name = "accountDescription", nullable = false)
+    @Column(name = "Description", nullable = false)
     private String Description;
 
-    @Column(name = "accountCreationDate")
+    @Column(name = "CreationDate")
     private LocalDate CreationDate = LocalDate.now();
 
     @OneToMany (mappedBy = "account", cascade = CascadeType.ALL)

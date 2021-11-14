@@ -2,6 +2,7 @@ package ERP.Project.TrialBalance;
 
 import ERP.Project.Account.AccountRepository;
 import ERP.Project.Account.AccountService;
+import ERP.Project.Enums.Status;
 import ERP.Project.JournalEntry.JournalEntry;
 import ERP.Project.JournalEntry.JournalEntryRepository;
 import ERP.Project.JournalEntry.JournalEntryService;
@@ -41,14 +42,14 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
     public TrialBalance getJournalEntriesDatePerAccount(LocalDate startDate, LocalDate endDate){
         List<JournalEntry> result = journalEntryService.getJournalEntriesDatePeriod(startDate,endDate);
         Map<String, Long> figures = sumFiguresPerAccount(result);
-        String status = checkSum(figures);
+        Status status = checkSum(figures);
         return new TrialBalance(startDate, endDate, figures, status);
     }
     @Override
     public TrialBalance getJournalEntriesDatePerCostCenter(LocalDate startDate, LocalDate endDate){
         List<JournalEntry> result = journalEntryService.getJournalEntriesDatePeriod(startDate,endDate);
         Map<String, Long> figures = sumFiguresPerCostCenter(result);
-        return new TrialBalance(startDate, endDate, figures, "OK");
+        return new TrialBalance(startDate, endDate, figures, Status.OK);
     }
 
     private List<Figure> getFigureListPerAccount(List<JournalEntry> result) {
@@ -87,24 +88,24 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
                 Collectors.summingLong(Figure::getAmount)));
         return totalByCostCenter;
     }
-    private String checkSum(Map<String, Long> figuresList){
+    private Status checkSum(Map<String, Long> figuresList){
         Long sum = 0L;
         for(Long l : figuresList.values()){
             sum += l;
         }
 
-        String status;
+        Status status;
         if(figuresList.size() == 0){
-            status = "No entries exist";
+            status = Status.EMPTY;
         }
         else if (sum == 0L){
-            status = "Trial Balance is OK";
+            status = Status.OK;
         }
         else{
-            status = "Trial Balance has missing entries";
+            status = Status.COMPROMISED;
         }
 
         return status;
-    } //use an enum
+    }
 }
 

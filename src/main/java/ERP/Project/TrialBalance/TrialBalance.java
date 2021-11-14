@@ -1,5 +1,6 @@
 package ERP.Project.TrialBalance;
 
+import ERP.Project.Enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +14,7 @@ public class TrialBalance {
     private LocalDate startDate;
     private LocalDate endDate;
     private Map<String,Long> figures;
-    private String Status;
+    private Status Status;
 
     public LocalDate getStartDate() {
         return startDate;
@@ -38,11 +39,11 @@ public class TrialBalance {
         this.figures = figures;
     }
 
-    public String getStatus() {
+    public ERP.Project.Enums.Status getStatus() {
         return Status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ERP.Project.Enums.Status status) {
         Status = status;
     }
 }

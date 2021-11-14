@@ -28,10 +28,10 @@ public class JournalEntry implements Serializable {
     @Column(name = "journalEntryKey")
     private String Id;
 
-    @Column(name = "journalEntryDate", nullable = false)
+    @Column(name = "PostedDate", nullable = false)
     private LocalDate Date = LocalDate.now();
 
-    @Column(name = "journalEntryRecordDate", nullable = false)
+    @Column(name = "RecordDate", nullable = false)
     private LocalDate RecordDate = LocalDate.now();
 
     @OneToMany (mappedBy = "journalEntry", cascade = CascadeType.ALL)

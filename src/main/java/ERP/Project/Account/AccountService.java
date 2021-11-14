@@ -1,8 +1,5 @@
 package ERP.Project.Account;
 
-import ERP.Project.Ledger.AccountLedger;
-
-import java.time.LocalDate;
 import java.util.List;
 
 public interface AccountService {

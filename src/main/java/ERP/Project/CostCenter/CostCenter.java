@@ -28,11 +28,11 @@ public class CostCenter implements Serializable {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "costCenterKey")
     private String Id;
-    @Column (name = "costCenterCode")
+    @Column (name = "Code")
     private String Code;
-    @Column (name = "costCenterDescription")
+    @Column (name = "Description")
     private String Description;
-    @Column (name = "costCenterCreationDate")
+    @Column (name = "CreationDate")
     private LocalDate CreationDate = LocalDate.now();
     @OneToMany (mappedBy = "costCenter", cascade = CascadeType.ALL)
     @JsonManagedReference(value="costCenter")

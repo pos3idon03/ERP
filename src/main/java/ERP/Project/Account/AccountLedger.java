@@ -1,4 +1,4 @@
-package ERP.Project.Ledger;
+package ERP.Project.Account;
 
 import ERP.Project.JournalEntry.JournalEntry;
 import ERP.Project.JournalEntryLine.JournalEntryLine;

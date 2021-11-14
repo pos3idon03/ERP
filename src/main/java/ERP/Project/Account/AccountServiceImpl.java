@@ -5,11 +5,9 @@ import ERP.Project.JournalEntry.JournalEntry;
 import ERP.Project.JournalEntry.JournalEntryRepository;
 import ERP.Project.JournalEntryLine.JournalEntryLine;
 import ERP.Project.JournalEntryLine.JournalEntryLineRepository;
-import ERP.Project.Ledger.AccountLedger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,17 +55,26 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account updateAccount(Account account, String id) {
-        Account existingAccount = accountRepository.getById(id);
-        existingAccount.setCode(account.getCode());
-        existingAccount.setDescription(account.getDescription());
-
-        accountRepository.save(existingAccount);
-        return existingAccount;
+        if(accountRepository.findById(id).isPresent()) {
+            Account existingAccount = accountRepository.getById(id);
+            existingAccount.setCode(account.getCode());
+            existingAccount.setDescription(account.getDescription());
+            accountRepository.save(existingAccount);
+            return existingAccount;
+        }
+        else{
+            throw new ResourceNotFoundException("Account ID not found:" + id);
+        }
     }
 
     @Override
     public void deleteAccount(String id) {
-        accountRepository.deleteById(id);
+        if(accountRepository.findById(id).isPresent()) {
+            accountRepository.deleteById(id);}
+        else{
+            throw new ResourceNotFoundException("Account ID not found:" + id);
+        }
+
     }
 
     @Override

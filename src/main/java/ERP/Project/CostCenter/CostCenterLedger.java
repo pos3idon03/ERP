@@ -1,4 +1,4 @@
-package ERP.Project.Ledger;
+package ERP.Project.CostCenter;
 
 import ERP.Project.JournalEntry.JournalEntry;
 import lombok.AllArgsConstructor;
