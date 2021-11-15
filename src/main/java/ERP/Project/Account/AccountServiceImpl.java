@@ -38,6 +38,19 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public List<Account> saveAccounts(List<Account> accounts) {
+        if(accounts.size() != 0){
+            for(int acc = 0;acc < accounts.size(); acc++ ){
+                accountRepository.save(accounts.get(acc));
+            }
+            return accounts;
+        }
+        else{
+            throw new ResourceNotFoundException("The List is empty");
+        }
+    }
+
+    @Override
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
     }
@@ -78,7 +91,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountLedger getJournalEntriesPerAccount(String accountId){ //createLedgerPerAccount
+    public AccountLedger createAccountLedger(String accountId){
         AccountLedger accountLedger = new AccountLedger();
         Account account = accountRepository.getById(accountId);
         accountLedger.setAccount(account.getCode());

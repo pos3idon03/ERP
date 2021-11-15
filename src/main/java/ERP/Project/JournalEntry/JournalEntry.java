@@ -32,7 +32,7 @@ public class JournalEntry implements Serializable {
     private LocalDate Date = LocalDate.now();
 
     @Column(name = "RecordDate", nullable = false)
-    private LocalDate RecordDate = LocalDate.now();
+    private LocalDate RecordDate;
 
     @OneToMany (mappedBy = "journalEntry", cascade = CascadeType.ALL)
     @JsonManagedReference(value="journalEntry")

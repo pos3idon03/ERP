@@ -65,15 +65,18 @@ public class JournalEntryServiceImpl implements JournalEntryService {
     public List<JournalEntry> getJournalEntriesDatePeriod(LocalDate startDate, LocalDate endDate) {
         List<JournalEntry> journalEntries = journalEntryRepository.findAll();
         List<JournalEntry> filteredJournalEntries = new ArrayList<JournalEntry>();
-
-        for(int i=0; i < journalEntries.size(); i++){
-            if((journalEntries.get(i).getDate().isAfter(startDate.minusDays(1))) &&
-                    (journalEntries.get(i).getDate().isBefore(endDate.plusDays(1)))){
-                filteredJournalEntries.add(journalEntries.get(i));
+        if(startDate.isBefore(endDate) && endDate.isBefore(LocalDate.now())) {
+            for (int i = 0; i < journalEntries.size(); i++) {
+                if ((journalEntries.get(i).getDate().isAfter(startDate.minusDays(1))) &&
+                        (journalEntries.get(i).getDate().isBefore(endDate.plusDays(1)))) {
+                    filteredJournalEntries.add(journalEntries.get(i));
+                }
             }
+            return filteredJournalEntries;
         }
-
-        return filteredJournalEntries;
+        else{
+            throw new ResourceNotFoundException("Date input is not correct");
+        }
     }
 
 

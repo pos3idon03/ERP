@@ -6,10 +6,11 @@ import java.util.List;
 
 public interface CostCenterService {
     CostCenter saveCostCenter(CostCenter costCenter);
+    List<CostCenter> saveCostCenters(List<CostCenter> costCenters);
     List<CostCenter> getAllCostCenters();
     CostCenter getCostCenterById(String id);
     CostCenter updateCostCenter(CostCenter costCenter, String id);
     void deleteCostCenter(String id);
-    CostCenterLedger getCostCenterLedger(String costCenterId);
+    CostCenterLedger createCostCenterLedger(String costCenterId);
     CostCenterLedger getCostCenterLedgerByDate(String costCenterId, LocalDate startDate, LocalDate endDate);
 }

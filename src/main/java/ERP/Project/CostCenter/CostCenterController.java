@@ -16,39 +16,33 @@ public class CostCenterController {
         this.costCenterService = costCenterService;
     }
 
-    //build create cost center RestAPI
-    @PostMapping("/api/costCenters")
-    //http://localhost:8080/api/costCenters
+    @PostMapping("/api/costCenter")
     public ResponseEntity<CostCenter> createCostCenter(@RequestBody CostCenter costCenter){
         return new ResponseEntity<CostCenter>(costCenterService.saveCostCenter(costCenter), HttpStatus.CREATED);
     }
 
-    //build update cost center RestAPI
-    //http://localhost:8080/api/costCenters/1
+    @PostMapping("/api/costCenters")
+    public List<CostCenter> createCostCenters(@RequestBody List<CostCenter> costCenters){
+        return costCenterService.saveCostCenters(costCenters);
+    }
+
     @PutMapping("/api/costCenter/{id}")
     public ResponseEntity<CostCenter> updateCostCenter(@PathVariable(value = "id") String costCenterCode,
                                                        @RequestBody CostCenter costCenter){
         return new ResponseEntity<CostCenter>(costCenterService.updateCostCenter(costCenter, costCenterCode), HttpStatus.OK);
     }
 
-    //build delete cost center RestAPI
-    //http://localhost:8080/api/costCenters/1
     @DeleteMapping("/api/costCenter/{id}")
     public String deleteCostCenter(@PathVariable(value = "id") String costCenterCode){
         costCenterService.deleteCostCenter(costCenterCode);
         return "Cost center deleted successfully";
     }
 
-    //build get cost center by Id RestAPI
-    //http://localhost:8080/api/costCenters/1
     @GetMapping("/api/costCenter/{id}")
     public ResponseEntity<CostCenter> getCostCenterById(@PathVariable(value = "id") String costCenterCode){
         return new ResponseEntity<CostCenter>(costCenterService.getCostCenterById(costCenterCode), HttpStatus.OK);
     }
 
-
-    //build get all cost center RestAPI
-    //http://localhost:8080/api/costCenters
     @GetMapping("/api/costCenters")
     public List<CostCenter> getAllCostCenters(){
         return costCenterService.getAllCostCenters();

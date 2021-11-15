@@ -35,9 +35,11 @@ public class Account implements Serializable{
     @Column(name = "CreationDate")
     private LocalDate CreationDate = LocalDate.now();
 
-    @OneToMany (mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToMany (mappedBy = "account",
+                cascade = CascadeType.ALL,
+                fetch = FetchType.EAGER)
     @JsonManagedReference(value="account")
-    Set<JournalEntryLine> journalEntryLines;
+    Set<JournalEntryLine> journalEntryLines ;
 
     public String getId() {
         return Id;
