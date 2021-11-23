@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -95,6 +96,15 @@ public class AccountServiceImpl implements AccountService {
         AccountLedger accountLedger = new AccountLedger();
         Account account = accountRepository.getById(accountId);
         accountLedger.setAccount(account.getCode());
+        List<JournalEntryLine> filteredJournalEntryLines = journalEntryLineRepository.findAll().stream().map(Account::getId).collect(Collectors.toList());
+
+
+
+
+        /*
+        AccountLedger accountLedger = new AccountLedger();
+        Account account = accountRepository.getById(accountId);
+        accountLedger.setAccount(account.getCode());
         List<JournalEntryLine> journalEntryLines = journalEntryLineRepository.findAll();
 
         List<JournalEntryLine> filteredJournalEntryLines = new ArrayList<JournalEntryLine>();
@@ -120,6 +130,9 @@ public class AccountServiceImpl implements AccountService {
         accountLedger.setJournalEntry(filteredJournalEntries);
 
         return accountLedger;
+         */
     }
+
+
 
 }

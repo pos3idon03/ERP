@@ -3,6 +3,7 @@ package ERP.Project.TrialBalance;
 import ERP.Project.Account.AccountRepository;
 import ERP.Project.Account.AccountService;
 import ERP.Project.Enums.Status;
+import ERP.Project.Exception.ResourceNotFoundException;
 import ERP.Project.JournalEntry.JournalEntry;
 import ERP.Project.JournalEntry.JournalEntryRepository;
 import ERP.Project.JournalEntry.JournalEntryService;
@@ -40,7 +41,7 @@ public class TrialBalanceServiceImpl implements TrialBalanceService {
 
     @Override
     public TrialBalance getJournalEntriesDatePerAccount(LocalDate startDate, LocalDate endDate){
-        List<JournalEntry> result = journalEntryService.getJournalEntriesDatePeriod(startDate,endDate);
+        List<JournalEntry> result = journalEntryService.getJournalEntriesDatePeriod(startDate, endDate);
         Map<String, Long> figures = sumFiguresPerAccount(result);
         Status status = checkSum(figures);
         return new TrialBalance(startDate, endDate, figures, status);

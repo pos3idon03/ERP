@@ -41,34 +41,48 @@ public class JournalEntryServiceImpl implements JournalEntryService {
 
     @Override
     public JournalEntry getJournalEntryById(String id) {
-
-        return journalEntryRepository.getById(id);
+        if(journalEntryRepository.findById(id).isPresent()){
+            return journalEntryRepository.getById(id);
+        }
+        else{
+            throw new ResourceNotFoundException("Journal Entry not found with ID: " + id);
+        }
     }
 
 
     @Override
     public JournalEntry updateJournalEntry(JournalEntry journalEntry, String id) {
-        JournalEntry existingJournalEntry = journalEntryRepository.getById(id);
-        existingJournalEntry.setDate(journalEntry.getDate());
-        existingJournalEntry.setJournalEntryLines(journalEntry.getJournalEntryLines());
+        if(journalEntryRepository.findById(id).isPresent()){
+            JournalEntry existingJournalEntry = journalEntryRepository.getById(id);
+            existingJournalEntry.setDate(journalEntry.getDate());
+            existingJournalEntry.setJournalEntryLines(journalEntry.getJournalEntryLines());
 
-        journalEntryRepository.save(existingJournalEntry);
-        return existingJournalEntry;
+            journalEntryRepository.save(existingJournalEntry);
+            return existingJournalEntry;
+        }
+        else{
+            throw new ResourceNotFoundException("Journal Entry not found with ID: " + id);
+        }
     }
 
     @Override
     public void deleteJournalEntry(String id) {
-        journalEntryRepository.deleteById(id);
+        if(journalEntryRepository.findById(id).isPresent()) {
+            journalEntryRepository.deleteById(id);
+        }
+        else{
+            throw new ResourceNotFoundException("Journal Entry not found with ID: " + id);
+        }
     }
 
     @Override
     public List<JournalEntry> getJournalEntriesDatePeriod(LocalDate startDate, LocalDate endDate) {
         List<JournalEntry> journalEntries = journalEntryRepository.findAll();
         List<JournalEntry> filteredJournalEntries = new ArrayList<JournalEntry>();
-        if(startDate.isBefore(endDate) && endDate.isBefore(LocalDate.now())) {
+        if(startDate.isBefore(endDate.minusDays(1)) && endDate.isBefore(LocalDate.now().plusDays(1))) {
             for (int i = 0; i < journalEntries.size(); i++) {
-                if ((journalEntries.get(i).getDate().isAfter(startDate.minusDays(1))) &&
-                        (journalEntries.get(i).getDate().isBefore(endDate.plusDays(1)))) {
+                if ((journalEntries.get(i).getRecordDate().isAfter(startDate.minusDays(1))) &&
+                        (journalEntries.get(i).getRecordDate().isBefore(endDate.plusDays(1)))) {
                     filteredJournalEntries.add(journalEntries.get(i));
                 }
             }
